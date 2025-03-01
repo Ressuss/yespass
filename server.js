@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const WebSocket = require('ws');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(__dirname));
@@ -18,7 +18,6 @@ wss.broadcast = function(data) {
     });
 };
 
-// Inicializar pontuações
 if (!fs.existsSync('pontuacoes.json')) {
     fs.writeFileSync('pontuacoes.json', JSON.stringify({ jogadorA: 0, jogadorB: 0 }));
 }
