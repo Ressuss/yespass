@@ -1,0 +1,62 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pontuação dos Jogadores</title>
+    <style>
+        body {
+            background-color: #5c1410;
+            color: #f4a396;
+            font-family: Verdana, sans-serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 400px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        p {
+            font-size: 40px;
+            color: #f4a396;
+            margin: -20px 0;
+        }
+        .numero {
+            font-size: 350px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        const socket = new WebSocket('ws://' + window.location.host);
+        
+        socket.onmessage = function(event) {
+            const data = JSON.parse(event.data);
+            document.getElementById('pontuacaoA').innerText = data.jogadorA;
+            document.getElementById('pontuacaoB').innerText = data.jogadorB;
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="column">
+            <p>Jogador A</p>
+            <p id="pontuacaoA" class="numero">0</p>
+        </div>
+        <div class="column">
+            <p>Jogador B</p>
+            <p id="pontuacaoB" class="numero">0</p>
+        </div>
+    </div>
+</body>
+</html>
